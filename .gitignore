@@ -1,6 +1,12 @@
+# hidden folders (usually version control and editor files, like .git/, .idea/, etc.)
+/.*/
 
-config.json
-scores.sqlite
-scores.sqlite-shm
-scores.sqlite-wal
-package-lock.json
+# locally installed node dependencies
+**/node_modules/
+
+# secrets, configuration and database
+/config.json
+/storage/**
+*.sqlite*
+
+!.gitkeep

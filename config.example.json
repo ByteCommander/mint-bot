@@ -1,0 +1,15 @@
+{
+  "token": "TOKEN/KEY",
+  "yandex": "TOKEN/KEY",
+  "youtubekey": "TOKEN/KEY",
+  "askkey": "TOKEN/KEY",
+  "SESSION_SECRET": "your_own_secret_code_for_sessions",
+  "CLIENT_SECRET": "your_client_secret_code",
+  "REDIRECT_URI": "your_redirect_uri",
+  "logchannel": "your_discord_channel_id",
+  "sqlite_path": "./storage/scores.sqlite",
+  "ssl_key_path": "/etc/letsencrypt/live/artemisbot.eu/privkey.pem",
+  "ssl_cert_path": "/etc/letsencrypt/live/artemisbot.eu/cert.pem",
+  "port_http": 8080,
+  "port_https": 8443
+}

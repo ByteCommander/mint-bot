@@ -7,7 +7,7 @@ module.exports = {
         const getGuild = db.prepare("SELECT * FROM guildhub WHERE guild = ?");
         const prefixstart = getGuild.get(message.guild.id);
         const prefix = prefixstart.prefix;
-        const photos = fs.readdirSync('./pics/cats');
+        const photos = fs.readdirSync('./storage/pics/cats');
         const array = [];
         for (const file of photos) {
             array.push(file);
@@ -17,7 +17,7 @@ module.exports = {
         message.channel.send({
             embed: embed,
             files: [{
-                attachment: './pics/cats/' + array[~~(Math.random() * array.length)],
+                attachment: './storage/pics/cats/' + array[~~(Math.random() * array.length)],
                 name: 'image.png'
             }]
         });

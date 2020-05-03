@@ -1,0 +1,12 @@
+# hidden folders (usually version control and editor files, like .git/, .idea, etc.)
+/.*/
+
+# locally installed node dependencies
+**/node_modules/
+
+# resource folders (mount as volume instead, because they're huge
+/storage/pics/
+
+# secrets, configuration and database
+/config.json
+*.sqlite*

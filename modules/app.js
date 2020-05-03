@@ -1,6 +1,8 @@
 /***
  * @fileOverview The back-end module which is running express.js
  */
+const configfile = require("../config");
+
 const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
@@ -12,42 +14,45 @@ const { SESSION_SECRET } = require("../config.json");
 const http = require("http");
 const https = require("https");
 const fs = require("fs");
-const db = require("better-sqlite3")("./scores.sqlite");
+const db = require("better-sqlite3")(configfile.sqlite_path);
 const bodyParser = require("body-parser");
+
 //Start database
+const dbinit = require("./dbinit.js");
+dbinit.dbinit();
 //userstuff
 const getScore = db.prepare(
   "SELECT * FROM scores WHERE user = ? ORDER BY guild DESC"
 );
-setScore = db.prepare(
+const setScore = db.prepare(
   "INSERT OR REPLACE INTO scores (id, user, guild, points, level, warning, muted, translate, stream, notes) VALUES (@id, @user, @guild, @points, @level, @warning, @muted, @translate, @stream, @notes);"
 );
 //Guildchannels
-getGuild = db.prepare(
+const getGuild = db.prepare(
   "SELECT * FROM guildhub WHERE guild = ? ORDER BY guild DESC"
 );
-setGuild = db.prepare(
+const setGuild = db.prepare(
   "INSERT OR REPLACE INTO guildhub (guild, generalChannel, highlightChannel, muteChannel, logsChannel, streamChannel, reactionChannel, streamHere, autoMod, prefix) VALUES (@guild, @generalChannel, @highlightChannel, @muteChannel, @logsChannel, @streamChannel, @reactionChannel, @streamHere, @autoMod, @prefix);"
 );
 //rolesdb
-getRoles = db.prepare(
+const getRoles = db.prepare(
   "SELECT * FROM roles WHERE guild = ? ORDER BY guild DESC"
 );
-setRoles = db.prepare(
+const setRoles = db.prepare(
   "INSERT OR REPLACE INTO roles (guild, roles) VALUES (@guild, @roles);"
 );
 //Worddb
-getWords = db.prepare(
+const getWords = db.prepare(
   "SELECT * FROM words WHERE guild = ? ORDER BY guild DESC"
 );
-setWords = db.prepare(
+const setWords = db.prepare(
   "INSERT OR REPLACE INTO words (guild, words) VALUES (@guild, @words);"
 );
 //levelup
-getLevel = db.prepare(
+const getLevel = db.prepare(
   "SELECT * FROM level WHERE guild = ? ORDER BY guild DESC"
 );
-setLevel = db.prepare(
+const setLevel = db.prepare(
   "INSERT OR REPLACE INTO level (guild, lvl5, lvl10, lvl15, lvl20, lvl30, lvl50, lvl85) VALUES (@guild, @lvl5, @lvl10, @lvl15, @lvl20, @lvl30, @lvl50, @lvl85);"
 );
 
@@ -1179,31 +1184,31 @@ exports.run = (client, config) => {
     res.redirect("/");
   });
   const privateKey = fs.readFileSync(
-    "/etc/letsencrypt/live/artemisbot.eu/privkey.pem",
+    configfile.ssl_key_path || "/etc/ssl/private/selfsigned-key.pem",
     "utf8"
   );
   const certificate = fs.readFileSync(
-    "/etc/letsencrypt/live/artemisbot.eu/cert.pem",
+    configfile.ssl_cert_path || "/etc/ssl/selfsigned-cert.pem",
     "utf8"
   );
-  const ca = fs.readFileSync(
-    "/etc/letsencrypt/live/artemisbot.eu/chain.pem",
-    "utf8"
-  );
+  // const ca = fs.readFileSync(
+  //   configfile.cert_path + "/chain.pem",
+  //   "utf8"
+  // );
 
   const credentials = {
     key: privateKey,
     cert: certificate,
-    ca: ca,
+    // ca: ca,
   };
   const httpsServer = https.createServer(credentials, app);
   const httpServer = http.createServer(app);
 
-  httpsServer.listen(443, () => {
-    console.log("HTTPS Server running on port 443");
+  httpsServer.listen(configfile.port_https, () => {
+    console.log(`HTTPS Server running on port ${configfile.port_https}`);
   });
 
-  httpServer.listen(80, () => {
-    console.log("HTTP Server running on port 80");
+  httpServer.listen(configfile.port_http, () => {
+    console.log(`HTTP Server running on port ${configfile.port_http}`);
   });
 };

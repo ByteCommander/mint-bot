@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  artemis:
+    image: mint-bot:latest
+    build: .
+    ports:
+    - 80:8080
+    - 443:8443
+    secrets:
+    - source: config_json
+      target: /app/config.json
+    volumes:
+    - ./storage:/app/storage
+
+secrets:
+  config_json:
+    file: ./config.json

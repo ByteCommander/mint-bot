@@ -4,7 +4,7 @@ dbinit = require("./dbinit.js");
 dbinit.dbinit();
 module.exports = {
   automod: function (autoexec, message) {
-    sql = require("better-sqlite3")("./scores.sqlite");
+    sql = require("better-sqlite3")(configfile.sqlite_path);
     if (autoexec == "wordFilter") {
       //Word/sentence filter
       let allwords = sql

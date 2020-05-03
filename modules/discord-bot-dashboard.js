@@ -1,10 +1,9 @@
-
-const app = require('./app')
+const configfile = require("../config");
+const app = require("./app");
 
 module.exports.run = (client, config, oAuth) => {
 
     config = {
-        port: config.port || 3000,
         maintenanceNotification: config.maintenanceNotification || false,
 
         baseGame: config.baseGame || "!help | v0.0.6.3",
@@ -14,10 +13,9 @@ module.exports.run = (client, config, oAuth) => {
         maintenanceBot_status: config.maintenanceBot_status || "dnd",
 
         clientSecret: oAuth.secret || config.clientSecret,
-        redirectURI: config.redirectURI || "http://localhost:3000/auth/discord/callback"
+        redirectURI: config.redirectURI || `http://localhost:${configfile.port_http}/auth/discord/callback`
     };
 
-    // Required: Discord.client, port (default: 3000)
-    app.run(client, config)
+    app.run(client, config);
 
-}
+};

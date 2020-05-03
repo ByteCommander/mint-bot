@@ -1,7 +1,8 @@
 exports.npm = function () {
+  configfile = require("../config.json");
   request = require(`request`);
   Discord = require("discord.js");
-  db = require("better-sqlite3")("./scores.sqlite");
+  db = require("better-sqlite3")(configfile.sqlite_path);
   ln = require("nodejs-linenumber");
   wtf = require("wtf_wikipedia");
   fs = require("fs");
@@ -15,7 +16,6 @@ exports.npm = function () {
   curl = require("curl");
   htmlText = require("html-text");
   Canvas = require("canvas");
-  configfile = require("../config.json");
   dashboard = require("./discord-bot-dashboard.js");
   htmlToText = require("html-to-text");
   ffmpeg = require("fluent-ffmpeg");

@@ -15,11 +15,11 @@ console.log = function (str) {
   originalLog(str);
   if (str) {
     if (str.length > 1500) {
-      client.channels.get("701764606053580870").send(str, {
+      client.channels.get(configfile.logchannel).send(str, {
         split: true,
       });
     } else {
-      client.channels.get("701764606053580870").send(str);
+      client.channels.get(configfile.logchannel).send(str);
     }
   }
 };
@@ -73,9 +73,9 @@ client.once("ready", () => {
   );
 
   //loop read
-  setInterval(() => {
-    console.log('');
-  }, 1000);
+  // setInterval(() => {
+  //   console.log('');
+  // }, 1000);
 
   //change bot Status
   setInterval(() => {
@@ -86,12 +86,11 @@ client.once("ready", () => {
   }, 60000);
 
   //Wipe music
-  const musicf = fs.readdirSync("./music");
+  const musicf = fs.readdirSync("./storage/music");
   for (const file of musicf) {
-    fs.unlink("./music/" + file, (err) => {
+    fs.unlink("./storage/music/" + file, (err) => {
       if (err) {
         console.error(err);
-        return;
       }
     });
   }
@@ -219,11 +218,10 @@ client.once("ready", () => {
     }
   }
 
-  //start Website
+  // start Website
   dashboard.run(
     client,
     {
-      port: 80,
       clientSecret: configfile.CLIENT_SECRET,
       redirectURI: configfile.REDIRECT_URI,
     },
@@ -236,12 +234,11 @@ client.once("ready", () => {
 //Reconnect
 client.once("reconnecting", () => {
   //Wipe music
-  const musicf = fs.readdirSync("./music");
+  const musicf = fs.readdirSync("./storage/music");
   for (const file of musicf) {
     fs.unlink("./music/" + file, (err) => {
       if (err) {
         console.error(err);
-        return;
       }
     });
   }
