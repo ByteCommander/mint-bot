@@ -1,16 +1,34 @@
 version: "3.8"
 services:
-  artemis:
+  bot:
     image: mint-bot:latest
-    build: .
-    ports:
-    - 80:8080
-    - 443:8443
+    build:
+      context: bot
+    init: true
     secrets:
-    - source: config_json
-      target: /app/config.json
+      - source: config_json
+        target: /app/config.json
     volumes:
-    - ./storage:/app/storage
+      - source: "${PWD}/storage"
+        target: /app/storage
+        type: bind
+
+  site:
+    image: mint-site:latest
+    build:
+      context: site
+    init: true
+    ports:
+      - 80:8080
+      - 443:8443
+    secrets:
+      - source: config_json
+        target: /app/config.json
+    volumes:
+      - source: "${PWD}/storage/db"
+        target: /app/storage/db
+        type: bind
+
 
 secrets:
   config_json:

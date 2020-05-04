@@ -1,0 +1,43 @@
+{
+  "name": "mintbot",
+  "version": "1.0.0",
+  "description": "discord bot for the mint discord server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UtopicUnicorns/mint-bot.git"
+  },
+  "keywords": [
+    "bot",
+    "js",
+    "sqlite"
+  ],
+  "author": "UtopicUnicorns",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UtopicUnicorns/mint-bot/issues"
+  },
+  "homepage": "https://github.com/UtopicUnicorns/mint-bot#readme",
+  "dependencies": {
+    "@discordjs/uws": "^10.149.0",
+    "better-sqlite3": "^5.4.3",
+    "body-parser": "^1.19.0",
+    "discord.js": "^11.5.1",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "moment": "^2.24.0",
+    "nodejs-linenumber": "^1.0.0",
+    "passport": "^0.4.1",
+    "passport-discord.js": "0.0.6"
+  },
+  "devDependencies": {
+    "npm-check": "^5.9.2"
+  }
+}

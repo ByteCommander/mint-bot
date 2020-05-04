@@ -5,8 +5,8 @@
 **/node_modules/
 
 # secrets, configuration and database
-/config.json
-/storage/**
-*.sqlite*
+config.json
+/storage
 
+# keep these files for tracking otherwise empty directories
 !.gitkeep
