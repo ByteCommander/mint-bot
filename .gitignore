@@ -4,9 +4,15 @@
 # locally installed node dependencies
 **/node_modules/
 
-# secrets, configuration and database
+# secret  configuration
 config.json
-/storage
+
+# persistent storage folders (ignore only files, not folders)
+/storage/db/*
+/storage/music/*
+/storage/pics/*/*
+/storage/specs/*
+/storage/*.*
 
 # keep these files for tracking otherwise empty directories
 !.gitkeep
